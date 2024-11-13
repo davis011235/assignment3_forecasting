@@ -76,14 +76,13 @@ class FashionNet(nn.Module):
 
 model = FashionNet()
 
-#Slightly modified LeNet-5, from this pytorch tutorial: https://pytorch.org/tutorials/beginner/introyt/trainingyt.html#loss-function
+#Slightly modified LeNet-5, from Week 8 slides and pytorch tutorial: https://pytorch.org/tutorials/beginner/introyt/trainingyt.html#loss-function
 #Cutting edge technology straight from the 1990's. Someone probably looked up info on this with Netscape Navigator while wearing parachute pants and a backwards hat
 #Originally tried to follow the structure of 1998 MNIST paper (http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf), but they were using 32x32 input for the MNIST? And when I tried to pad the Fashion MNIST 28x28 input up to 32x32 everything broke
 
 
 
-
-#import script to evaluate model
+#import script to evaluate model (From week 7 slides)
 
 PATH = "model.pt"
 
