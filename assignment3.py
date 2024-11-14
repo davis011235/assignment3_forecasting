@@ -58,28 +58,23 @@ px.imshow(test_data.image_data[2],title=str(title))
 class FashionNet(nn.Module):
     def __init__(self):
         super(FashionNet, self).__init__()
-        self.conv1 = nn.Conv2d(1, 6, 5)
-        self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 5)
-        self.fc1 = nn.Linear(16 * 4 * 4, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 10)
+        self.flatten = nn.Flatten()
+        self.linear_relu_stack = nn.Sequential(
+            nn.Linear(28*28, 512),
+            nn.ReLU(),
+            nn.Linear(512, 512),
+            nn.ReLU(),
+            nn.Linear(512, 10)
+        )
 
     def forward(self, x):
-        x = self.pool(F.relu(self.conv1(x)))
-        x = self.pool(F.relu(self.conv2(x)))
-        x = x.view(-1, 16 * 4 * 4)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
+        x = self.flatten(x)
+        params = self.linear_relu_stack(x)
+        #softmax = nn.Softmax(dim=1)
+        #pred_probab = softmax(params)
+        return params
 
 model = FashionNet()
-
-#Slightly modified LeNet-5, from Week 8 slides and pytorch tutorial: https://pytorch.org/tutorials/beginner/introyt/trainingyt.html#loss-function
-#Cutting edge technology straight from the 1990's. Someone probably looked up info on this with Netscape Navigator while wearing parachute pants and a backwards hat
-#Originally tried to follow the structure of 1998 MNIST paper (http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf), but they were using 32x32 input for the MNIST? And when I tried to pad the Fashion MNIST 28x28 input up to 32x32 everything broke
-
 
 
 #import script to evaluate model (From week 7 slides)
